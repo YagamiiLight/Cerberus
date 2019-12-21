@@ -77,6 +77,25 @@
   
   [![asciicast](https://asciinema.org/a/mQ6qLc98J87Srpf7nGq8MakdP.svg)](https://asciinema.org/a/mQ6qLc98J87Srpf7nGq8MakdP)
   
+- :panda_face: 指定中间件漏洞扫描
+
+  如果已知目标部分中间件信息，可以指定类型，直接进行扫描
+  
+  - Thinkphp CVE-2018-5955
+  
+  - Phpmyadmain CVE-2018-12613
+  
+  - Dedecms
+  
+  - Tomcat CVE-2018-11759
+  
+  - Weblogic
+  
+  - Wordpress
+  
+  `python3 cerberus.py -target www.qq.com -midlleware weblogic`
+  
+  
   
 - :trollface: 输入文件批量扫描
 
@@ -96,8 +115,7 @@
   
 
 
-  
-  
+
   
   
   
