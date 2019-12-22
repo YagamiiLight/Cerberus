@@ -113,6 +113,23 @@
 
   `python3 cerberus.py -outfile`
   
+  
+## :monkey: 维护与完善
+
+这个项目是个不完全版，最近要准备期末考试和找实习，之前原本设计一些强大并且很具有创新力功能因为时间原因取消了。原本设计的功能包括先对目标进行FUZZ，根据结果决策出bypass方案，并且根据结果自动生成payload，更加精准的有效率的攻击，以及能识别验证码的弱口令爆破功能，以后我会慢慢完善。
+
+## :rabbit: Praise me!
+
+   - :kissing_cat: 如果您认为本项目对您有一定帮助，为了更好的开源安全工具！请赞赏我！感谢您的赞赏！
+
+   ![praise](https://github.com/YagamiiLight/Cerberus/blob/master/images/praise.jpg)
+
+## 声明
+
+本项目仅供学习交流，使用本工具所造成的任何违法后果，与本人无关！！
+
+
+  
 
 
 
