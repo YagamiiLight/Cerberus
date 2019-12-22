@@ -16,6 +16,7 @@ parser.add_argument('-proxy', dest='proxy',action="store_true")
 parser.add_argument('-waf',dest='waf',action="store_true")
 parser.add_argument('-outfile',nargs='?',dest='outfile')
 parser.add_argument('-mail', nargs='?', dest='mail')
+parser.add_argument('-cookie',nargs='?',dest='cookie')
 parser.add_argument('-subdomains',dest='subdomains',action = "store_true")
 parser.add_argument('-file', nargs='?', dest='file')
 parser.add_argument('-detectMid', dest='detectmid', action='store_true')
@@ -32,6 +33,7 @@ mail = args.mail
 waf = args.waf
 file = args.file
 target = args.target
+cookie = args.cookie
 detectmid = args.detectmid
 middleware = args.middleware
 subdomains = args.subdomains
@@ -57,11 +59,14 @@ from core.auxiliary import convert_target,get_proxy,load_queue
 
 file_= None
 subdomain_queue = None
-
-
+cookies = None
+proxy_queue = None
 
 if file:
     file_= str(file)
+
+if cookie:
+    cookies = cookies
 
 
 if target:
@@ -118,7 +123,7 @@ if waf:
 
 
 
-module_attack = Attack(target,logger_type,subdomain_queue = subdomain_queue,file = file_)
+module_attack = Attack(target,logger_type,cookie = cookies, subdomain_queue = subdomain_queue,proxy_queue = proxy_queue,file = file_)
 execution = module_attack.execution
 quicksliver(execution,threads)
 print(f"{red}[!!][{time}] Vulnerability scan has finished !{end}")

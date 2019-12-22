@@ -78,6 +78,8 @@ def get_proxy(proxy_queue):
         else:
             print(f"{green}[!][{time}]{proxy[0]} is dead !{end}")
             proxy = proxy_queue.get()
+    print(f"{red}[!][{time}] No more No available proxy{end}")
+    return None
 
 
 

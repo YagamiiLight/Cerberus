@@ -6,19 +6,22 @@ from core.assault_pre import assault_pre
 from core.log import time,factory_logger
 from core.colors import red,blue_green,end
 from core.Quicksilver import quicksliver
-from core.auxiliary import chambering,receive_check,extract_domain,vul_message,file_handler,error_check
+from core.auxiliary import chambering,receive_check,extract_domain,vul_message,file_handler,error_check,get_proxy
 
 
 
 class Attack:
 
-    def __init__(self,target,logger_type,subdomain_queue = None,file = None):
+    def __init__(self,target,logger_type,cookie = None,subdomain_queue = None,proxy_queue = None,file = None):
 
         self.file = file
+        self.proxy = None
         self.target = target
+        self.cookie = cookie
         self.requests_seen = set()
         self.filter_ = Filter.filter
         self.logger_type = logger_type
+        self.proxy_queue = proxy_queue
         self.target_url = queue.Queue()
         self.Attack_target = queue.Queue()
         self.target_domain = queue.Queue()
@@ -100,7 +103,10 @@ class Attack:
 
                     if self.domain in original:
                         url, data = chambering(original,strike = False)
-                        received_ = requester(url,data,GET = True)
+                        received_ = requester(url,data,GET = True,cookie = self.cookie,proxy = self.proxy)
+                        if received_.status_code == 403:
+                            if not self.proxy_queue is None and not self.proxy_queue.empty():
+                                self.proxy = get_proxy(self.proxy_queue)
                         print(f"{blue_green}[+][{time}] Vulnerability scanning is being performed on {original}{end}")
                         if not received_ is None:
                             self.url_extrator(received_.text)
@@ -111,7 +117,7 @@ class Attack:
 
                     if "=" in original:
                         url, data = chambering(original, strike=False)
-                        received = requester(url, data, GET=True)
+                        received = requester(url, data, GET=True,cookie = self.cookie,proxy = self.proxy)
 
                         for vul_type, category in strike_pre.get_payload_category().items():
                             for count in range(category[1].qsize()):
@@ -119,10 +125,10 @@ class Attack:
                                 url, data = chambering(original,strike = True,payload=payload,type = vul_type)
 
                                 if vul_type in ["SQLi","file_inclusion","command_injection","ssrf"]:
-                                    Poisoned = requester(url,data,GET = True)
+                                    Poisoned = requester(url,data,GET = True,cookie = self.cookie,proxy = self.proxy)
                                     code = Poisoned.status_code
 
-                                    if not Poisoned is None and code < 500 and code != 404:
+                                    if not Poisoned is None and code < 400:
                                         if error_check(Poisoned):
                                             if receive_check(received.text,Poisoned.text,vul_type,payload):
                                                 message = vul_message(vul_type,original,payload)
