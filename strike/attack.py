@@ -153,21 +153,6 @@ if __name__ == '__main__':
     execut = cerberus.execution
     # execut()
     quicksliver(execut,7)
-    # target = "dance.qq.com"
-    # url, data = chambering(target, strike=False)
-    # received = requester(url, data, GET=True, timeout=5)
-    # print(received.headers)
-    # print(received.status_code)
-    #
-    # import requests
-    # res = requests.get()
-    #
-
-
-    # p = cerberus.url_extrator(target.text)
-    # while not p.empty():
-    #     print(p.get())
-    #
 
 
 
