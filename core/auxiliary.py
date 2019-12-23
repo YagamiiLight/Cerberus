@@ -8,8 +8,7 @@ from urllib3.exceptions import ConnectTimeoutError
 
 
 
-url = "http://www.jxtcms.net/shownews.php?id=4291&dirid=5"
-url_= "http://www.jxtcms.net/shownews.php"
+
 
 def chambering(url,strike,payload = None,type = None):
 
