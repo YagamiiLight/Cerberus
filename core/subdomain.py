@@ -5,6 +5,7 @@ from core.colors import blue_green,end
 from core.log import factory_logger,time
 
 
+
 class subdomain:
 
     def __init__(self,target,file,logger_type):
