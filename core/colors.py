@@ -15,7 +15,6 @@ else:
 
     end = '\033[0m'
 
-
 """
 blue_green[+]
 red [!]
