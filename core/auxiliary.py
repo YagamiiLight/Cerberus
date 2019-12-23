@@ -9,7 +9,6 @@ from urllib3.exceptions import ConnectTimeoutError
 
 
 
-
 def chambering(url,strike,payload = None,type = None):
 
     if "=" in url:
