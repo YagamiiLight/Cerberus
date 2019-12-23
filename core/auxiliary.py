@@ -112,6 +112,9 @@ def convert_target(url):
 
 def extract_domain(target):
     if not target is None:
+        if isinstance(target, list):
+            domain = target[0].split(".")[1]
+            return domain
         domain = target.split(".")[1]
         return domain
     return None
