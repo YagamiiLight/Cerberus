@@ -11,7 +11,7 @@ from urllib3.exceptions import ConnectTimeoutError
 
 def chambering(url,strike,payload = None,type = None):
 
-    if "=" in url:
+    if "=" in url and "?" in url:
         data = url.split("?")[1].split("&")
         params_extractor = tuple((i.split('=')[0],i.split('=')[1]) for i in data)
         params = {i:j for i, j in params_extractor}
@@ -144,5 +144,7 @@ def load_queue(subdomain):
     return subdomain_queue
 
 
-
-
+if __name__ == '__main__':
+    # chambering(url, strike, payload=None, type=None):
+    url =  "https://plus.jd.com/indexf?low_system=appicon&flow_entrance=appicon11&flow_channel=pc"
+    chambering(url,strike=False)

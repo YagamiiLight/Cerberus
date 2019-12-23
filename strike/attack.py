@@ -88,6 +88,8 @@ class Attack:
             if not self.target is None:
                 self.initis()
 
+
+
             while not self.target_url.empty():
                 target = self.target_url.get()
                 strike_pre = assault_pre()
@@ -96,7 +98,6 @@ class Attack:
 
                 while not target.empty():
                     original = target.get()
-                    # print(self.target_url.qsize())
                     # url = regex.URL_PATH.sub("=", original)
                     """and self.filter_(url,self.requests_seen)"""
                     # print("fucking" + original)
@@ -104,7 +105,7 @@ class Attack:
                     if self.domain in original:
                         url, data = chambering(original,strike = False)
                         received_ = requester(url,data,GET = True,cookie = self.cookie,proxy = self.proxy)
-                        if received_.status_code == 403:
+                        if not received_ is None and received_.status_code == 403:
                             if not self.proxy_queue is None and not self.proxy_queue.empty():
                                 self.proxy = get_proxy(self.proxy_queue)
                         print(f"{blue_green}[+][{time}] Vulnerability scanning is being performed on {original}{end}")
@@ -126,10 +127,9 @@ class Attack:
 
                                 if vul_type in ["SQLi","file_inclusion","command_injection","ssrf"]:
                                     Poisoned = requester(url,data,GET = True,cookie = self.cookie,proxy = self.proxy)
-                                    code = Poisoned.status_code
 
-                                    if not Poisoned is None and code < 400:
-                                        if error_check(Poisoned):
+                                    if not Poisoned is None and Poisoned.status_code < 400:
+                                        if error_check(Poisoned.text):
                                             if receive_check(received.text,Poisoned.text,vul_type,payload):
                                                 message = vul_message(vul_type,original,payload)
                                                 self.logger.critical(message)
@@ -142,17 +142,6 @@ class Attack:
         except Exception:
             pass
 
-
-
-if __name__ == '__main__':
-    cerberus = Attack("http://www.ztcc.com","StreamLogger")
-    # target = requester("http://www.weibo.com",None,GET = True)
-    # cerberus.url_extrator(target.text)
-
-
-    execut = cerberus.execution
-    # execut()
-    quicksliver(execut,7)
 
 
 
