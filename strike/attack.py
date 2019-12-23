@@ -92,8 +92,8 @@ class Attack:
 
             while not self.target_url.empty():
                 target = self.target_url.get()
-                strike_pre = assault_pre()
-                strike_pre.payload_provide()
+                # strike_pre = assault_pre()
+                # strike_pre.payload_provide()
 
 
                 while not target.empty():
@@ -118,6 +118,8 @@ class Attack:
 
                     if "=" in original:
                         url, data = chambering(original, strike=False)
+                        strike_pre = assault_pre()
+                        strike_pre.payload_provide()
                         received = requester(url, data, GET=True,cookie = self.cookie,proxy = self.proxy)
 
                         for vul_type, category in strike_pre.get_payload_category().items():
