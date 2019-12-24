@@ -55,7 +55,9 @@
 
   国内外100+款waf信息,强大的指纹库，包括安全狗，云锁，阿里云，云盾，腾讯云等，提供部分已知waf bypass 方案
   
-  `python3 cerberus.py -target www.qq.com -waf`
+  请务必提供带有参数的URL进行WAF测试！
+  
+  `python3 cerberus.py -target https://open.weixin.qq.com/frame?t=home/web_tmpl&lang=zh_CN -waf`
 
 - :see_no_evil:中间件信息收集
 
