@@ -12,7 +12,8 @@ from core.log import factory_logger,time
 
 def check_waf(target, logger_type, proxy = None):
 
-    if "=" not in target:
+    original_target = target
+    if "=" not in original_target:
         print(f"{red}[!][{time}] Please provide a url with parameters! {end}")
         quit()
 
@@ -33,7 +34,9 @@ def check_waf(target, logger_type, proxy = None):
 
         for intruder in waf_checker:
             try:
-                target, payload = chambering(target, strike=True, payload=intruder)
+                intruder_type = "XSS" if intruder.startswith("<") else "SQLi"
+
+                target, payload = chambering(original_target, strike=True, payload=intruder,type = intruder_type)
                 response = requester(target, payload, GET=True, timeout=5, proxy=proxy)
                 print(f"{purple}[~][{time}] using {intruder} to detect WAF !{end}")
 

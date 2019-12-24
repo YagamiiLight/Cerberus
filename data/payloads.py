@@ -1,12 +1,13 @@
-waf_checker = [ "'",
-                "1 AND 1",
-                "1/**/AND/**/1",
-                "1 AND 1=1",
-                "1 AND 1 LIKE 1",
+waf_checker = [ " '",
+                " AND 1",
+                " /**/AND/**/1",
+                " AND 1=1",
+                " AND 1 LIKE 1",
+                " ' AND '1'='1",
                 "<img src=x onerror=alert('XSS')>",
                 "<img onfoo=f()>",
-                "<script>alert('intrusion')</script>",
-                " ' AND '1'='1"]
+                "<script>alert('intrusion')</script>"
+              ]
 
 Sql_injection = {
 
