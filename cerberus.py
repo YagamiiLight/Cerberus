@@ -74,11 +74,7 @@ if target:
 
 
 
-logger_type = "StreamLogger"
-
-
-if outfile:
-    logger_type = "FileLogger"
+logger_type = "FileLogger" if outfile else "StreamLogger"
 
 
 if mail:

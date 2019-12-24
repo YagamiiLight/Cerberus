@@ -41,33 +41,33 @@ def check_waf(target, logger_type, proxy = None):
                 print(f"{purple}[~][{time}] using {intruder} to detect WAF !{end}")
 
 
-                if code >= 400 and not response is None:
-
-                    match = 0
+                if not response is None:
                     page, code, headers = response.text, response.status_code, response.headers
+                    if code >= 400:
+                        match = 0
 
-                    for waf_name, waf_signature in waf_data.items():
+                        for waf_name, waf_signature in waf_data.items():
 
-                        if re.search(waf_signature['regex'],page,re.I):
-                            match = match + 1
-
-                        if "code" in waf_signature:
-                            if re.search(waf_signature['code'],code,re.I):
+                            if re.search(waf_signature['regex'],page,re.I):
                                 match = match + 1
 
-                        if "header" in waf_signature:
-                            if re.search(waf_signature["header"],headers,re.I):
-                                match = match +1
+                            if "code" in waf_signature:
+                                if re.search(waf_signature['code'],code,re.I):
+                                    match = match + 1
 
-                        if match > max(waf_match,key=waf_match.get):
-                            waf_info['company'] = waf_name
-                            waf_info['waf_type'] = waf_signature['name']
-                            if 'bypass_known' not in waf_signature:
-                                waf_info['bypass_known'] = None
-                            else:
-                                waf_info['bypass_known'] = waf_signature['bypass_known']
-                            waf_match.clear()
-                            waf_match[match] : waf_info
+                            if "header" in waf_signature:
+                                if re.search(waf_signature["header"],headers,re.I):
+                                    match = match +1
+
+                            if match > max(waf_match,key=waf_match.get):
+                                waf_info['company'] = waf_name
+                                waf_info['waf_type'] = waf_signature['name']
+                                if 'bypass_known' not in waf_signature:
+                                    waf_info['bypass_known'] = None
+                                else:
+                                    waf_info['bypass_known'] = waf_signature['bypass_known']
+                                waf_match.clear()
+                                waf_match[match] : waf_info
             except Exception:
                 pass
 
