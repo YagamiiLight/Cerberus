@@ -1,16 +1,21 @@
 import re
 import json
 import time
-from core.colors import green,end
-from core.log import factory_logger
+from core.colors import red,green,purple,end
 from core.auxiliary import chambering
 from core.requester import requester
 from data.payloads import waf_checker
+from core.log import factory_logger,time
 
 
-time = time.strftime('%Y-%m-%d %H:%M:%S')
+
 
 def check_waf(target, logger_type, proxy = None):
+
+    if "=" not in target:
+        print(f"{red}[!][{time}] Please provide a url with parameters! {end}")
+        quit()
+
 
     # folder = Path.cwd().parent
     # waf_file = str(folder / "data/waf_signature")
@@ -30,12 +35,13 @@ def check_waf(target, logger_type, proxy = None):
             try:
                 target, payload = chambering(target, strike=True, payload=intruder)
                 response = requester(target, payload, GET=True, timeout=5, proxy=proxy)
+                print(f"{purple}[~][{time}] using {intruder} to detect WAF !{end}")
 
-                if not response is None:
-                    page, code, headers = response.text, response.status_code, response.headers
 
-                if code >= 400:
+                if code >= 400 and not response is None:
+
                     match = 0
+                    page, code, headers = response.text, response.status_code, response.headers
 
                     for waf_name, waf_signature in waf_data.items():
 
@@ -71,5 +77,4 @@ def check_waf(target, logger_type, proxy = None):
 
 if __name__ == '__main__':
 
-    r = check_waf("http://www.qq.com")
-    print(r)
+    check_waf("http://www.qq.com","StreamLogger")
