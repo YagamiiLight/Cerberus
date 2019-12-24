@@ -30,9 +30,11 @@ def check_waf(target, logger_type, proxy = None):
             try:
                 target, payload = chambering(target, strike=True, payload=intruder)
                 response = requester(target, payload, GET=True, timeout=5, proxy=proxy)
-                page, code, headers = response.text, response.status_code, response.headers
 
-                if int(code) >= 400:
+                if not response is None:
+                    page, code, headers = response.text, response.status_code, response.headers
+
+                if code >= 400:
                     match = 0
 
                     for waf_name, waf_signature in waf_data.items():

@@ -1,10 +1,10 @@
 waf_checker = [ "'",
-                # "1 AND 1",
-                # "1/**/AND/**/1",
-                # "1 AND 1=1",
+                "1 AND 1",
+                "1/**/AND/**/1",
+                "1 AND 1=1",
                 "1 AND 1 LIKE 1",
                 "<img src=x onerror=alert('XSS')>",
-                # "<img onfoo=f()>",
+                "<img onfoo=f()>",
                 "<script>alert('intrusion')</script>",
                 " ' AND '1'='1"]
 
