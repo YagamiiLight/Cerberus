@@ -26,8 +26,8 @@ class Filter:
             md5.update(item.encode('utf-8'))
             if md5.hexdigest() not in container:
                 container.add(md5.hexdigest())
-                # print(item)
                 return True
+            return False
         return False
 
 
